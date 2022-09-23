@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -27,8 +27,8 @@ public class Employee implements Serializable {
     private String phone_number;
     private Long level;
     private Long status;
+    @Column(name = "create_time", nullable = false, updatable = false)
     private String createTime;
     private String updateTime;
     private Long organizationId;
-    private Long userId;
 }

@@ -1,9 +1,9 @@
 package com.example.springbootcrudwithangular.service.employee;
 
 import com.example.springbootcrudwithangular.common.constant.SSWConstant;
+import com.example.springbootcrudwithangular.common.exception.EmployeeNotFoundException;
 import com.example.springbootcrudwithangular.common.utils.DateUtils;
 import com.example.springbootcrudwithangular.entity.Employee;
-import com.example.springbootcrudwithangular.common.exception.EmployeeNotFoundException;
 import com.example.springbootcrudwithangular.repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EmployeeService implements IEmployeeService{
+public class EmployeeService implements IEmployeeService {
 
     private final EmployeeRepo employeeRepo;
 
@@ -32,7 +32,7 @@ public class EmployeeService implements IEmployeeService{
             throw new EmployeeNotFoundException("Employee by id " + id + " was not found");
         }
         employee.setUpdateTime(DateUtils.getCurrentTime(SSWConstant.FORMAT_DAY_HOUR, SSWConstant.TIMEZONE_VIETNAM));
-        return null;
+        return employeeRepo.save(employee);
     }
 
     @Override
@@ -48,6 +48,9 @@ public class EmployeeService implements IEmployeeService{
 
     @Override
     public void deleteEmployeeById(Long id) {
+        if (findEmployeeById(id) == null) {
+            throw new EmployeeNotFoundException("Employee by id " + id + " was not found");
+        }
         employeeRepo.deleteEmployeeById(id);
     }
 }
