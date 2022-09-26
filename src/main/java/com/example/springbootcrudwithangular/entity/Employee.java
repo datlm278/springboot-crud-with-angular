@@ -24,7 +24,7 @@ public class Employee implements Serializable {
     private String name;
     private String email;
     private String address;
-    private String phone_number;
+    private String phoneNumber;
     private Long level;
     private Long status;
     @Column(name = "create_time", nullable = false, updatable = false)
